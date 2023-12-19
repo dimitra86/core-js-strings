@@ -41,8 +41,12 @@ function getStringLength(value) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  // throw new Error('Not implemented');
+  if (typeof value === 'string') {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -90,8 +94,10 @@ function getFirstChar(value) {
  *   removeLeadingAndTrailingWhitespaces('cat ') => 'cat'
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  // throw new Error('Not implemented');
+  const str = value.trim();
+  return str;
 }
 
 /**
@@ -105,8 +111,10 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   removeLeadingWhitespaces('cat ') => 'cat '
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
-function removeLeadingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingWhitespaces(value) {
+  // throw new Error('Not implemented');
+  const str = value.trimStart();
+  return str;
 }
 
 /**
@@ -165,7 +173,14 @@ function repeatString(str, times) {
  */
 function removeFirstOccurrences(str, value) {
   // throw new Error('Not implemented');
-  return str.replace(value, '');
+  const lastindex = str.indexOf(value);
+
+  if (str.includes(value) === true) {
+    return (
+      str.slice(0, lastindex) + str.slice(lastindex + value.length, str.length)
+    );
+  }
+  return str;
 }
 
 /**
@@ -205,8 +220,20 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  // throw new Error('Not implemented');
+  let sum = 0;
+  // const nul = null;
+  if (str === undefined) {
+    return 0;
+  }
+  if (!str || str.length < 1) {
+    return 0;
+  }
+  for (let i = 0; i < str.length; i += 1) {
+    sum += str[i].codePointAt();
+  }
+  return sum;
 }
 
 /**
@@ -236,8 +263,9 @@ function startsWith(str, substr) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  // throw new Error('Not implemented');
+  return str.endsWith(substr);
 }
 
 /**
@@ -253,8 +281,9 @@ function endsWith(/* str, substr */) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  // throw new Error('Not implemented');
+  return new Date(`${minutes}:${seconds}`);
 }
 
 /**
