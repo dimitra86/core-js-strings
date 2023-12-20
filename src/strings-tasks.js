@@ -283,7 +283,16 @@ function endsWith(str, substr) {
  */
 function formatTime(minutes, seconds) {
   // throw new Error('Not implemented');
-  return new Date(`${minutes}:${seconds}`);
+  if (minutes < 10) {
+    if (seconds < 10) {
+      return `0${minutes}:0${seconds}`;
+    }
+    return `0${minutes}:${seconds}`;
+  }
+  if (seconds < 10) {
+    return `${minutes}:0${seconds}`;
+  }
+  return `${minutes}:${seconds}`;
 }
 
 /**
@@ -351,8 +360,49 @@ function containsSubstring(str, substring) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  // throw new Error('Not implemented');
+  let num = 0;
+  // const str='XYZ';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === 'a') {
+      num += 1;
+    }
+    if (str[i] === 'e') {
+      num += 1;
+    }
+    if (str[i] === 'i') {
+      num += 1;
+    }
+    if (str[i] === 'o') {
+      num += 1;
+    }
+    if (str[i] === 'u') {
+      num += 1;
+    }
+    if (str[i] === 'y') {
+      num += 1;
+    }
+    if (str[i] === 'A') {
+      num += 1;
+    }
+    if (str[i] === 'E') {
+      num += 1;
+    }
+    if (str[i] === 'I') {
+      num += 1;
+    }
+    if (str[i] === 'O') {
+      num += 1;
+    }
+    if (str[i] === 'U') {
+      num += 1;
+    }
+    if (str[i] === 'Y') {
+      num += 1;
+    }
+  }
+  return num;
 }
 
 /**
@@ -368,8 +418,14 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  // throw new Error('Not implemented');
+  const str1 = str.toLocaleLowerCase().replace(/\s/g, '');
+
+  return (
+    str1 ===
+    str.toLocaleLowerCase().replace(/\s/g, '').split('').reverse().join('')
+  );
 }
 
 /**
