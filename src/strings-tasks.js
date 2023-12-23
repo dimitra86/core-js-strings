@@ -43,6 +43,20 @@ function getStringLength(value) {
  */
 function isString(value) {
   // throw new Error('Not implemented');
+  if (value === undefined) {
+    return false;
+  }
+  if (value == null) {
+    return false;
+  }
+  // eslint-disable-next-line no-new-wrappers
+  if (value instanceof String) {
+    return true;
+  }
+  if (typeof value === 'object') {
+    return false;
+  }
+  // else if(value=={}){console.log (false);}
   if (typeof value === 'string') {
     return true;
   }
@@ -231,7 +245,7 @@ function sumOfCodes(str) {
     return 0;
   }
   for (let i = 0; i < str.length; i += 1) {
-    sum += str[i].codePointAt();
+    sum += str[i].charCodeAt();
   }
   return sum;
 }
@@ -285,7 +299,7 @@ function formatTime(minutes, seconds) {
   // throw new Error('Not implemented');
   if (minutes < 10) {
     if (seconds < 10) {
-      return `0${minutes}:0${seconds}`;
+      return `0${minutes}:0${seconds}`.padStart(2, '0');
     }
     return `0${minutes}:${seconds}`;
   }
@@ -418,14 +432,22 @@ function countVowels(str) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
+/* eslint no-useless-escape: "error" */
 function isPalindrome(str) {
   // throw new Error('Not implemented');
-  const str1 = str.toLocaleLowerCase().replace(/\s/g, '');
 
-  return (
-    str1 ===
-    str.toLocaleLowerCase().replace(/\s/g, '').split('').reverse().join('')
-  );
+  const strClean = str
+    .toLocaleLowerCase()
+    .replace(/[.,/#!?$%^&*;:{}=\-_`~(' ')]/g, '')
+    .split('')
+    .join('');
+  const strRev = str
+    .toLocaleLowerCase()
+    .replace(/[.,/#!?$%^&*;:{}=\-_`~(' ')]/g, '')
+    .split('')
+    .reverse()
+    .join('');
+  return strClean === strRev;
 }
 
 /**
@@ -440,8 +462,20 @@ function isPalindrome(str) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  // throw new Error('Not implemented');
+  const arr = sentence.split(' ');
+  // console.log (arr[0].length);
+
+  let longWord = arr[0];
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (longWord.length < arr[i].length) {
+      longWord = arr[i];
+    }
+  }
+
+  return longWord;
 }
 
 /**
@@ -454,8 +488,12 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  // throw new Error('Not implemented');
+
+  const strRev = str.split(' ').reverse().join(' ');
+
+  return strRev.split('').reverse().join('');
 }
 
 /**
@@ -469,8 +507,20 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  // throw new Error('Not implemented');
+  let strNew = '';
+  for (let i = 0; i < str.length; i += 1) {
+    // strNew=str.charAt(i);
+    if (str[i] === str[i].toUpperCase()) {
+      strNew += str[i].toLowerCase();
+    } else {
+      strNew += str[i].toUpperCase();
+    }
+    // console.log (str[i].toLowerCase());
+  }
+
+  return strNew;
 }
 
 /**
@@ -486,8 +536,9 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  // throw new Error('Not implemented');
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -500,8 +551,17 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  // throw new Error('Not implemented');
+  // const value='Hello, John Doe!';
+  const arr = value.split(' ');
+  const str = `${arr[1]} ${arr[2]}`;
+  let strNew = '';
+  for (let i = 0; i < str.length - 1; i += 1) {
+    // if(str[i]=='!'){}
+    strNew += str[i];
+  }
+  return strNew;
 }
 
 /**
@@ -515,8 +575,13 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  // throw new Error('Not implemented');
+  let strNew = '';
+  for (let i = 1; i < str.length - 1; i += 1) {
+    strNew += str[i];
+  }
+  return strNew;
 }
 
 /**
@@ -534,8 +599,10 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  // throw new Error('Not implemented');
+  const arr = str.split(';');
+  return arr;
 }
 
 /**
@@ -554,8 +621,184 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  // throw new Error('Not implemented');
+  let str13 = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === 'A') {
+      str13 += 'N';
+    }
+    if (str[i] === 'B') {
+      str13 += 'O';
+    }
+    if (str[i] === 'C') {
+      str13 += 'P';
+    }
+    if (str[i] === 'D') {
+      str13 += 'Q';
+    }
+    if (str[i] === 'E') {
+      str13 += 'R';
+    }
+    if (str[i] === 'F') {
+      str13 += 'S';
+    }
+    if (str[i] === 'G') {
+      str13 += 'T';
+    }
+    if (str[i] === 'H') {
+      str13 += 'U';
+    }
+    if (str[i] === 'I') {
+      str13 += 'V';
+    }
+    if (str[i] === 'J') {
+      str13 += 'W';
+    }
+    if (str[i] === 'K') {
+      str13 += 'X';
+    }
+    if (str[i] === 'L') {
+      str13 += 'Y';
+    }
+    if (str[i] === 'M') {
+      str13 += 'Z';
+    }
+    if (str[i] === 'N') {
+      str13 += 'A';
+    }
+    if (str[i] === 'O') {
+      str13 += 'B';
+    }
+    if (str[i] === 'P') {
+      str13 += 'C';
+    }
+    if (str[i] === 'Q') {
+      str13 += 'D';
+    }
+    if (str[i] === 'R') {
+      str13 += 'E';
+    }
+    if (str[i] === 'S') {
+      str13 += 'F';
+    }
+    if (str[i] === 'T') {
+      str13 += 'G';
+    }
+    if (str[i] === 'U') {
+      str13 += 'H';
+    }
+    if (str[i] === 'V') {
+      str13 += 'I';
+    }
+    if (str[i] === 'W') {
+      str13 += 'J';
+    }
+    if (str[i] === 'X') {
+      str13 += 'K';
+    }
+    if (str[i] === 'Y') {
+      str13 += 'L';
+    }
+    if (str[i] === 'Z') {
+      str13 += 'M';
+    }
+
+    if (str[i] === 'a') {
+      str13 += 'n';
+    }
+    if (str[i] === 'b') {
+      str13 += 'o';
+    }
+    if (str[i] === 'c') {
+      str13 += 'p';
+    }
+    if (str[i] === 'd') {
+      str13 += 'q';
+    }
+    if (str[i] === 'e') {
+      str13 += 'r';
+    }
+    if (str[i] === 'f') {
+      str13 += 's';
+    }
+    if (str[i] === 'g') {
+      str13 += 't';
+    }
+    if (str[i] === 'h') {
+      str13 += 'u';
+    }
+    if (str[i] === 'i') {
+      str13 += 'v';
+    }
+    if (str[i] === 'j') {
+      str13 += 'w';
+    }
+    if (str[i] === 'k') {
+      str13 += 'x';
+    }
+    if (str[i] === 'l') {
+      str13 += 'y';
+    }
+    if (str[i] === 'm') {
+      str13 += 'z';
+    }
+    if (str[i] === 'n') {
+      str13 += 'a';
+    }
+    if (str[i] === 'o') {
+      str13 += 'b';
+    }
+    if (str[i] === 'p') {
+      str13 += 'c';
+    }
+    if (str[i] === 'q') {
+      str13 += 'd';
+    }
+    if (str[i] === 'r') {
+      str13 += 'e';
+    }
+    if (str[i] === 's') {
+      str13 += 'f';
+    }
+    if (str[i] === 't') {
+      str13 += 'g';
+    }
+    if (str[i] === 'u') {
+      str13 += 'h';
+    }
+    if (str[i] === 'v') {
+      str13 += 'i';
+    }
+    if (str[i] === 'w') {
+      str13 += 'j';
+    }
+    if (str[i] === 'x') {
+      str13 += 'k';
+    }
+    if (str[i] === 'y') {
+      str13 += 'l';
+    }
+    if (str[i] === 'z') {
+      str13 += 'm';
+    }
+    if (str[i] === ' ') {
+      str13 += ' ';
+    }
+    if (str[i] === '?') {
+      str13 += '?';
+    }
+    if (str[i] === '!') {
+      str13 += '!';
+    }
+    if (str[i] === '.') {
+      str13 += '.';
+    }
+    if (str[i] === ',') {
+      str13 += ',';
+    }
+  }
+  return str13;
 }
 
 /**
@@ -582,8 +825,168 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  // throw new Error('Not implemented');
+  if (value === 'A♣') {
+    return 0;
+  }
+  if (value === '2♣') {
+    return 1;
+  }
+  if (value === '3♣') {
+    return 2;
+  }
+  if (value === '4♣') {
+    return 3;
+  }
+  if (value === '5♣') {
+    return 4;
+  }
+  if (value === '6♣') {
+    return 5;
+  }
+  if (value === '7♣') {
+    return 6;
+  }
+  if (value === '8♣') {
+    return 7;
+  }
+  if (value === '9♣') {
+    return 8;
+  }
+  if (value === '10♣') {
+    return 9;
+  }
+  if (value === 'J♣') {
+    return 10;
+  }
+  if (value === 'Q♣') {
+    return 11;
+  }
+  if (value === 'K♣') {
+    return 12;
+  }
+  if (value === 'A♦') {
+    return 13;
+  }
+  if (value === '2♦') {
+    return 14;
+  }
+  if (value === '3♦') {
+    return 15;
+  }
+  if (value === '4♦') {
+    return 16;
+  }
+  if (value === '5♦') {
+    return 17;
+  }
+  if (value === '6♦') {
+    return 18;
+  }
+  if (value === '7♦') {
+    return 19;
+  }
+  if (value === '8♦') {
+    return 20;
+  }
+  if (value === '9♦') {
+    return 21;
+  }
+  if (value === '10♦') {
+    return 22;
+  }
+  if (value === 'J♦') {
+    return 23;
+  }
+  if (value === 'Q♦') {
+    return 24;
+  }
+  if (value === 'K♦') {
+    return 25;
+  }
+  if (value === 'A♥') {
+    return 26;
+  }
+  if (value === '2♥') {
+    return 27;
+  }
+  if (value === '3♥') {
+    return 28;
+  }
+  if (value === '4♥') {
+    return 29;
+  }
+  if (value === '5♥') {
+    return 30;
+  }
+  if (value === '6♥') {
+    return 31;
+  }
+  if (value === '7♥') {
+    return 32;
+  }
+  if (value === '8♥') {
+    return 33;
+  }
+  if (value === '9♥') {
+    return 34;
+  }
+  if (value === '10♥') {
+    return 35;
+  }
+  if (value === 'J♥') {
+    return 36;
+  }
+  if (value === 'Q♥') {
+    return 37;
+  }
+  if (value === 'K♥') {
+    return 38;
+  }
+  if (value === 'A♠') {
+    return 39;
+  }
+  if (value === '2♠') {
+    return 40;
+  }
+  if (value === '3♠') {
+    return 41;
+  }
+  if (value === '4♠') {
+    return 42;
+  }
+  if (value === '5♠') {
+    return 43;
+  }
+  if (value === '6♠') {
+    return 44;
+  }
+  if (value === '7♠') {
+    return 45;
+  }
+  if (value === '8♠') {
+    return 46;
+  }
+  if (value === '9♠') {
+    return 47;
+  }
+  if (value === '10♠') {
+    return 48;
+  }
+  if (value === 'J♠') {
+    return 49;
+  }
+  if (value === 'Q♠') {
+    return 50;
+  }
+  if (value === 'K♠') {
+    return 51;
+  }
+  if (value === 'A♣') {
+    return 0;
+  }
+  return '';
 }
 
 module.exports = {
