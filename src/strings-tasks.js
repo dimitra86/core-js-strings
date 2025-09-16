@@ -54,7 +54,7 @@ function isString(value) {
   if (typeof value === 'object') {
     return false;
   }
-  // else if(value=={}){console.log (false);}
+
   if (typeof value === 'string') {
     return true;
   }
@@ -137,7 +137,6 @@ function removeLeadingWhitespaces(value) {
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
 function removeTrailingWhitespaces(value) {
-  // const str = value.replace(/\s+$/, '');
   const str = value.trimEnd();
   return str;
 }
@@ -225,7 +224,6 @@ function removeLastOccurrences(str, value) {
  */
 function sumOfCodes(str) {
   let sum = 0;
-  // const nul = null;
   if (str === undefined) {
     return 0;
   }
@@ -305,7 +303,6 @@ function formatTime(minutes, seconds) {
  *   reverseString('12345') => '54321'
  */
 function reverseString(str) {
-  // throw new Error('Not implemented')
   return [...str].reverse().join('');
 }
 
@@ -359,7 +356,6 @@ function containsSubstring(str, substring) {
  */
 function countVowels(str) {
   let num = 0;
-  // const str='XYZ';
   for (let i = 0; i < str.length; i += 1) {
     if (str[i] === 'a') {
       num += 1;
@@ -444,8 +440,6 @@ function isPalindrome(str) {
  */
 function findLongestWord(sentence) {
   const arr = sentence.split(' ');
-  // console.log (arr[0].length);
-
   let longWord = arr[0];
 
   for (let i = 0; i < arr.length; i += 1) {
@@ -487,13 +481,11 @@ function reverseWords(str) {
 function invertCase(str) {
   let strNew = '';
   for (let i = 0; i < str.length; i += 1) {
-    // strNew=str.charAt(i);
     if (str[i] === str[i].toUpperCase()) {
       strNew += str[i].toLowerCase();
     } else {
       strNew += str[i].toUpperCase();
     }
-    // console.log (str[i].toLowerCase());
   }
 
   return strNew;
@@ -527,12 +519,10 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  // const value='Hello, John Doe!';
   const arr = value.split(' ');
   const str = `${arr[1]} ${arr[2]}`;
   let strNew = '';
   for (let i = 0; i < str.length - 1; i += 1) {
-    // if(str[i]=='!'){}
     strNew += str[i];
   }
   return strNew;
